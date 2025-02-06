@@ -1,0 +1,39 @@
+#root{
+  height: 100dvh;
+}
+.labelInput{
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.labelInput input{
+  max-width: none;
+  width: 100%;
+}
+
+.BTNMODALLOGIN{
+  margin-top: 14px;
+}
+.BUTOnnnn{
+  margin: 12px;
+  position: relative;
+}
+
+
+.backgroundFont {
+
+  position:
+    absolute;
+
+  display:
+    block;
+
+  top: 0;
+
+  left: 0;
+
+  z-index: 0;
+}
+
+
