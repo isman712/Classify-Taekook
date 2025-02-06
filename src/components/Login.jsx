@@ -4,11 +4,9 @@ import { useSupabase } from "../context/SupabaseContext";
 import Noti from "../util/Noti";
 
 function Login({ modal7, setModal7 }) {
-  
-    const supabase = useSupabase()
-    const [log, setLog] = useState("login");
+  const supabase = useSupabase();
+  const [log, setLog] = useState("login");
 
-    
   function LoginRegis() {
     const [alerOn, setAlerOn] = useState(false);
     const [dis, setDis] = useState("");
@@ -45,8 +43,8 @@ function Login({ modal7, setModal7 }) {
       setContrair(e.target.value);
     };
     const cedulaE = (e) => {
-        setCedula(e.target.value);
-      };
+      setCedula(e.target.value);
+    };
 
     async function loginFecht() {
       if (correoil.length < 3) {
@@ -91,13 +89,13 @@ function Login({ modal7, setModal7 }) {
     }
 
     async function RegisterFecht() {
-        if (cedula.length < 3) {
-            setErr8("Debes colocar un N° cedula!");
-            setTimeout(() => {
-              setErr8("");
-            }, 2500);
-            return;
-          }
+      if (cedula.length < 3) {
+        setErr8("Debes colocar un N° cedula!");
+        setTimeout(() => {
+          setErr8("");
+        }, 2500);
+        return;
+      }
       if (name.length < 3) {
         setErr1("Debes colocar un nombre!");
         setTimeout(() => {
@@ -142,40 +140,63 @@ function Login({ modal7, setModal7 }) {
                 "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg",
             },
           ]);
-      
+
         if (userError) {
-          console.error('Error registrando los detalles del usuario:', userError);
-          Noti("error", "Vaya...", "Hubo un error registrando los detalles del usuario", false);
+          console.error(
+            "Error registrando los detalles del usuario:",
+            userError
+          );
+          Noti(
+            "error",
+            "Vaya...",
+            "Hubo un error registrando los detalles del usuario",
+            false
+          );
           return;
         }
-      
+
         const { data: defaultFolder, error: folderError } = await supabase
-          .from('folders')
+          .from("folders")
           .insert([
             {
-              name: 'Default Folder',
-              user_id: dat.id, 
-              parent_id: null, 
-            }
+              name: "Default Folder",
+              user_id: dat.id,
+              parent_id: null,
+            },
           ])
-          .select('*');
-      
+          .select("*");
+
         if (folderError) {
-          console.error('Error creando la carpeta por defecto:', folderError);
-          Noti("error", "Vaya...", "Hubo un error registrando los detalles del usuario", false);
+          console.error("Error creando la carpeta por defecto:", folderError);
+          Noti(
+            "error",
+            "Vaya...",
+            "Hubo un error registrando los detalles del usuario",
+            false
+          );
           return;
         }
-      console.log(defaultFolder[0]?.id)
+        console.log(defaultFolder[0]?.id);
         const { data: updateUser, error: updateError } = await supabase
-          .from('user_details')
+          .from("user_details")
           .update({ default_folder_id: defaultFolder[0]?.id })
-          .eq('user_id', dat.id);
-      
+          .eq("user_id", dat.id);
+
         if (updateError) {
-          console.error('Error actualizando el usuario con la carpeta por defecto:', updateError);
-          Noti("error", "Vaya...", "Hubo un error registrando los detalles del usuario", false);
+          console.error(
+            "Error actualizando el usuario con la carpeta por defecto:",
+            updateError
+          );
+          Noti(
+            "error",
+            "Vaya...",
+            "Hubo un error registrando los detalles del usuario",
+            false
+          );
         } else {
-          console.log('Usuario registrado y carpeta por defecto creada con éxito');
+          console.log(
+            "Usuario registrado y carpeta por defecto creada con éxito"
+          );
         }
       }
     }
@@ -264,7 +285,11 @@ function Login({ modal7, setModal7 }) {
       return (
         <>
           {alerOn && (
-            <div role="alert" className="alert alert-success new-alert-op" style={{marginTop: '16px'}}>
+            <div
+              role="alert"
+              className="alert alert-success new-alert-op"
+              style={{ marginTop: "16px" }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 shrink-0 stroke-current"
@@ -282,11 +307,11 @@ function Login({ modal7, setModal7 }) {
               <span>Se enviará un correo electrónico de verificación</span>
             </div>
           )}
-   <label>
+          <label>
             <div className="label">
               <span className="label-text"></span>
             </div>
-<label className="floating-label">
+            <label className="floating-label">
               <span className="labelInput">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -459,7 +484,7 @@ function Login({ modal7, setModal7 }) {
             />
           </div>
           <div>
-          <LoginRegis />
+            <LoginRegis />
           </div>
         </div>
         <label className="modal-backdrop" htmlFor="my_modal_7">

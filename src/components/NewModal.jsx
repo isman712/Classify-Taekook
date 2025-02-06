@@ -8,15 +8,15 @@ const NewFolderModal = ({ parentId, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data =  await createFolder(name, type, parentId);
+    const data = await createFolder(name, type, parentId);
     console.log(data);
-   // onClose();
+    // onClose();
   };
 
   console.log(parentId);
   return (
     <div className="">
-      <form >
+      <form>
         <h2>Crear Nueva Carpeta o Lista</h2>
         <input
           type="text"
@@ -29,8 +29,9 @@ const NewFolderModal = ({ parentId, onClose }) => {
           <option value="folder">Carpeta</option>
           <option value="list">Lista</option>
         </select>
-        <button type="submit" onClick={handleSubmit}>Crear</button>
-  
+        <button type="submit" onClick={handleSubmit}>
+          Crear
+        </button>
       </form>
     </div>
   );

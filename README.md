@@ -49,7 +49,7 @@ Classify Taekook es una herramienta web **innovadora** que combina la flexibilid
 
 - Importa listas desde Excel(en desarrollo) o crea grupos desde cero.
 
-- Añade perfiles de estudiantes con fotos, datos de contacto y observaciones personalizadas.
+- Añade estudiantes para que tengan acceso a sus calificaciones.
 
   
 

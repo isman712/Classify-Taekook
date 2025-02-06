@@ -8,10 +8,18 @@ import { useParams, Link } from "react-router-dom";
 function Dash() {
   const { user } = useUser();
   const { folderId } = useParams();
-  const { folders, lists, fetchData, loading } = useData();
+  const { folders, lists, fetchData, loading, datAff } = useData();
   const [filteredFolders, setFilteredFolders] = useState([]);
   const [filteredLists, setFilteredLists] = useState([]);
   const [foldersID, setFoldersID] = useState(folderId || null);
+
+  useEffect(() => {
+    document.documentElement.classList.add("no-scroll");
+
+    return () => {
+      document.documentElement.classList.remove("no-scroll");
+    };
+  }, []);
 
   useEffect(() => {
     console.log("useEffect - Verificando folderId y user...");
@@ -28,7 +36,6 @@ function Dash() {
     );
 
     if (folders && lists) {
-      // Filtramos las carpetas y listas según el folderId
       const filteredFolders = folders.filter(
         (folder) => folder.parent_id === foldersID
       );
@@ -41,7 +48,6 @@ function Dash() {
   }, [folders, lists, foldersID]);
 
   useEffect(() => {
-    // Solo recargamos los datos si no están disponibles
     if (!folders.length || !lists.length) {
       fetchData();
     }
@@ -65,9 +71,9 @@ function Dash() {
     );
   }
   return (
-    <div className="flex h-full">
+    <div className="flex  h-full">
       <Menu />
-      <div className="ContenidoDash w-full p-5">
+      <div className="ContenidoDash w-full p-5" style={{ overflowY: "auto" }}>
         <div className="flex w-full items-center justify-between">
           <h1 className="text-2xl font-bold">Listas / Carpetas</h1>
           <AddFolderList parentID={foldersID} />
@@ -115,7 +121,7 @@ function Dash() {
             </div>
           ))}
         </ul>
-        <ul className="flex gap-4 flex-col mt-6">
+        <ul className="flex gap-4 flex-col mt-6 mb-20">
           {filteredLists.map((list) => (
             <div
               className="card bg-base-200 "
@@ -156,6 +162,51 @@ function Dash() {
               </div>
             </div>
           ))}
+        </ul>
+        <ul className="flex gap-4 flex-col mt-6 mb-20">
+          {location.pathname ===
+          `/panel/${user?.details?.default_folder_id}` ? (
+            <div>
+              <h1 className="text-3xl font-bold mb-4">
+                Listas a las que perteneces
+              </h1>
+              {datAff.length > 0 ? (
+                datAff.map((list) => (
+                  <div
+                    className="card bg-base-200"
+                    style={{ width: "70%" }}
+                    key={list.id}
+                  >
+                    <div className="card-body flex flex-row">
+                      <div className="card bg-base-300 p-6 w-auto mr-4 flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="30"
+                          fill="currentColor"
+                          className="bi bi-file-earmark-ruled-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M3 9h10v1H6v2h7v1H6v2H5v-2H3v-1h2v-2H3z" />
+                        </svg>
+                      </div>
+                      <div className="flex items-center justify-between w-full">
+                        <h1 className="text-2xl font-bold">{list.name}</h1>
+                        <Link
+                          to={`/panel/${list.lista_id}/nota`}
+                          className="btn btn-secondary w-60"
+                        >
+                          Ir a la lista
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-lg text-center text-gray-500">Sin listas</p>
+              )}
+            </div>
+          ) : null}
         </ul>
       </div>
     </div>

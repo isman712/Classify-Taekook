@@ -1,21 +1,26 @@
-#root{
+@import "tailwindcss";
+@plugin "daisyui";
+
+#root {
   height: 100dvh;
 }
-.labelInput{
+
+.labelInput {
   display: flex;
   gap: 4px;
   align-items: center;
 }
 
-.labelInput input{
+.labelInput input {
   max-width: none;
   width: 100%;
 }
 
-.BTNMODALLOGIN{
+.BTNMODALLOGIN {
   margin-top: 14px;
 }
-.BUTOnnnn{
+
+.BUTOnnnn {
   margin: 12px;
   position: relative;
 }
@@ -37,3 +42,40 @@
 }
 
 
+section {
+
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  text-align: left;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+
+
+@media (max-width: 768px) {
+  section {
+    margin: 15px;
+  }
+
+  .DesaTItuNAbv {
+    display: none;
+  }
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}

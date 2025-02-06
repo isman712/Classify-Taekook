@@ -7,14 +7,19 @@ import EstudiantesDatps from "../UsuariosSchema";
 
 function AddFolderList({ parentID }) {
   const supabase = useSupabase();
-  const { fetchData } = useData()
+  const { fetchData } = useData();
   const { user } = useUser();
   const [folderName, setFolderName] = useState("");
   const [listName, setListName] = useState("");
 
   const createFolder = async () => {
     if (!folderName.trim()) {
-      return Noti("error", "Vaya...", "El nombre de la carpeta no puede estar vacío", false);
+      return Noti(
+        "error",
+        "Vaya...",
+        "El nombre de la carpeta no puede estar vacío",
+        false
+      );
     }
     try {
       const { error } = await supabase
@@ -28,7 +33,7 @@ function AddFolderList({ parentID }) {
       }
 
       Noti("success", "¡Listo!", "Carpeta creada correctamente", true);
-      fetchData()
+      fetchData();
       setFolderName("");
       document.getElementById("crear_carpeta_modal").close();
     } catch (error) {
@@ -39,7 +44,12 @@ function AddFolderList({ parentID }) {
 
   const createList = async () => {
     if (!listName.trim()) {
-      return Noti("error", "Vaya...", "El nombre de la lista no puede estar vacío", false);
+      return Noti(
+        "error",
+        "Vaya...",
+        "El nombre de la lista no puede estar vacío",
+        false
+      );
     }
     try {
       // Crear la lista
@@ -58,16 +68,28 @@ function AddFolderList({ parentID }) {
       // Crear la columna predeterminada "Estudiantes"
       const { error: columnError } = await supabase
         .from("listas_notas")
-        .insert([{ list_id: listData.id, datos: EstudiantesDatps, name: listName }]);
+        .insert([
+          { list_id: listData.id, datos: EstudiantesDatps, name: listName },
+        ]);
 
       if (columnError) {
         console.error("Error creando la tabla:", columnError);
-        Noti("error", "Vaya...", "Hubo un error creando la tabla predeterminada", false);
+        Noti(
+          "error",
+          "Vaya...",
+          "Hubo un error creando la tabla predeterminada",
+          false
+        );
         return;
       }
 
-      Noti("success", "¡Listo!", "Lista y tabla predeterminada creadas correctamente", true);
-      fetchData()
+      Noti(
+        "success",
+        "¡Listo!",
+        "Lista y tabla predeterminada creadas correctamente",
+        true
+      );
+      fetchData();
       setListName("");
       document.getElementById("crear_lista_modal").close();
     } catch (error) {
@@ -86,12 +108,13 @@ function AddFolderList({ parentID }) {
       </button>
       <button
         className="btn btn-secondary"
-        onClick={() => document.getElementById("crear_carpeta_modal").showModal()}
+        onClick={() =>
+          document.getElementById("crear_carpeta_modal").showModal()
+        }
       >
         Crear carpeta
       </button>
 
-  
       <dialog id="crear_carpeta_modal" className="modal">
         <div className="modal-box">
           <form method="dialog">
@@ -114,7 +137,6 @@ function AddFolderList({ parentID }) {
           </div>
         </div>
       </dialog>
-
 
       <dialog id="crear_lista_modal" className="modal">
         <div className="modal-box">

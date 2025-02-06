@@ -1,66 +1,145 @@
 import { useEffect } from "react";
 import { useUser } from "../context/UserContext";
 import { Link } from "react-router-dom";
+import React from "react";
+import Footer from "../components/Footer";
 
-function Inicio({setModal7}) {
-  const { user } = useUser()
+function Inicio({ setModal7 }) {
+  const { user } = useUser();
 
   return (
-      <div>
-        <div className="hero bg-base-200 min-h-screen">
-  <div className="hero-content text-center">
-    <div className="max-w-md w-full">
-          <h1 className="text-5xl font-bold  text-color-base-100 " style={{textShadow: '0px 0px 30px #ffff'}}>Classify <span style={{color: '#37F2B9', textShadow: '0px 0px 30px #37F2B9'}}>Taekook</span></h1>
-          <p className="py-6">
-          Crea listas de estudiantes, registra notas y utiliza herramientas avanzadas de hoja de cálculo.
-          </p>
-            <div className="flex gap-3 items-center justify-center">
-            {user ? (
-         <div>
-          <Link to={"/panel/" + user?.details?.default_folder_id} className="btn btn-primary">Ver listas</Link>
-        
-         </div>
-        ) : (
-          <div>
-            {" "}
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                setModal7("modal-open");
-              }}
-            >
-              Iniciar sesion
-            </button>
-          </div>
-        )}
-            <button className="btn btn-secondary ">Documentación</button>
+    <>
+      <section className="hadow-sm bg-base-200" style={{ textAlign: "center" }}>
+        <h1
+          className="text-5xl font-bold  text-color-base-100 mt-20"
+          style={{ textShadow: "0px 0px 30px #ffff" }}
+        >
+          Classify{" "}
+          <span
+            style={{ color: "#37F2B9", textShadow: "0px 0px 30px #37F2B9" }}
+          >
+            Taekook
+          </span>
+        </h1>
+        <p className="py-6">
+          Crea listas de estudiantes, registra notas y utiliza herramientas
+          avanzadas de hoja de cálculo.
+        </p>
+        <div className="flex gap-3 items-center justify-center mb-20">
+          {user ? (
+            <div>
+              <Link
+                to={"/panel/" + user?.details?.default_folder_id}
+                className="btn btn-primary"
+              >
+                Ver listas
+              </Link>
             </div>
-        </div>
-      </div>
-    </div>
+          ) : (
+            <div>
+              {" "}
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  setModal7("modal-open");
+                }}
+              >
+                Iniciar sesion
+              </button>
+            </div>
+          )}
 
-
-    <div>
-    <div class="features">
-            <div class="feature">
-                <h3>Listas Personalizadas</h3>
-                <p>Organiza estudiantes en listas por clases, grupos o secciones.</p>
-            </div>
-            <div class="feature">
-                <h3>Registro de Notas</h3>
-                <p>Guarda y gestiona calificaciones fácilmente con una interfaz intuitiva.</p>
-            </div>
-            <div class="feature">
-                <h3>Hoja de Cálculo Avanzada</h3>
-                <p>Utiliza copiado, pegado, fórmulas y mucho más.</p>
-            </div>
-            <div class="feature">
-                <h3>Sistema de Carpetas</h3>
-                <p>Clasifica tus listas en carpetas para una mejor organización.</p>
-            </div>
+          <Link to="/docs" className="btn btn-secondary ">
+            Documentación
+          </Link>
         </div>
-    </div>
-      </div>
+      </section>
+
+      <section className="hadow-sm bg-base-200">
+        <h2 className="text-primary text-2xl font-bold">
+          {" "}
+          📚 ¿Qué es Classify Taekook?
+        </h2>
+        <br />
+        <p>
+          Classify Taekook es una herramienta web innovadora que combina la
+          flexibilidad de una hoja de cálculo avanzada con un sistema intuitivo
+          de gestión académica. Crea listas de estudiantes, registra notas,
+          aplica fórmulas personalizadas y organiza todo en carpetas temáticas,
+          ¡todo en un solo lugar!
+        </p>
+      </section>
+      <section className="hadow-sm bg-base-200">
+        <h2 className="text-primary text-2xl font-bold">
+          🚀 Características Principales
+        </h2>
+        <br />
+        <ul>
+          <li>
+            <p className="text-secondary  ">
+              📝 Hojas de Cálculo Inteligentes:
+            </p>{" "}
+            Copia y pega celdas, arrastra datos y usa fórmulas avanzadas.
+          </li>{" "}
+          <br />
+          <li>
+            <p className="text-secondary ">
+              🗂️ Sistema de Carpetas Jerárquico:
+            </p>{" "}
+            Organiza tus clases de manera eficiente y accede desde cualquier
+            dispositivo.
+          </li>
+          <br />
+          <li>
+            <p className="text-secondary">
+              🎓 Gestión de Estudiantes Simplificada:
+            </p>{" "}
+            Importa listas desde Excel (en desarrollo) o crea grupos fácilmente.
+          </li>
+          <br />
+          <li>
+            <p className="text-secondary  ">
+              🔒 Seguridad y Colaboración (en desarrollo):
+            </p>{" "}
+            Comparte carpetas con otros profesores y accede a historial de
+            cambios.
+          </li>
+          <br />
+          <li>
+            <p className="text-secondary ">
+              📊 Reportes Profesionales (en desarrollo):
+            </p>{" "}
+            Genera boletines, gráficos y exporta datos a PDF o Excel.
+          </li>
+          <br />
+        </ul>
+      </section>
+
+      <section className="hadow-sm bg-base-200 mb-20">
+        <h2 className="text-primary text-2xl font-bold">
+          ✨ ¿Por Qué Elegir Classify Taekook?
+        </h2>
+        <br />
+        <ul>
+          <li>
+            <p className="text-secondary ">💎 ¡Cero complicaciones!</p> Interfaz
+            limpia y fácil de usar, incluso para los menos tecnológicos.
+          </li>
+          <br />
+          <li>
+            <p className="text-secondary ">⏰ Ahorra tiempo</p> con
+            automatizaciones que eliminan el trabajo repetitivo.
+          </li>
+          <br />
+          <li>
+            <p className="text-secondary ">☁️ 100% en la nube</p> Accede desde
+            tu computadora, tableta o móvil.
+          </li>
+          <br />
+        </ul>
+      </section>
+      <Footer></Footer>
+    </>
   );
 }
 

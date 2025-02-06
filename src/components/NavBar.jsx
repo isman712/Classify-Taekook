@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { useSupabase } from "../context/SupabaseContext";
 function Navbar({ setModal7 }) {
-
-    const {user} = useUser()
-    const supabase = useSupabase()
-    console.log(user)
-    async function signOut() {
-        const { error } = await supabase.auth.signOut()
-      }
+  const { user } = useUser();
+  const supabase = useSupabase();
+  console.log(user);
+  async function signOut() {
+    const { error } = await supabase.auth.signOut();
+  }
 
   return (
     <div className="navbar bg-base-300 shadow-sm navbarStick">
@@ -40,16 +39,16 @@ function Navbar({ setModal7 }) {
               <Link to="/">Inicio</Link>
             </li>
             <li>
-              <Link>Contacto</Link>
+              <Link to="/docs">Documentación</Link>
             </li>
             <li>
-              <Link>Servicios</Link>
+              <Link to="/contacto">Contacto</Link>
             </li>
           </ul>
         </div>
         <a className="btn btn-ghost text-xl">
           <img src="/logo.png" alt="" width="60px" />
-          Classify Taekook
+          <span className="DesaTItuNAbv"> Classify Taekook</span>
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -58,15 +57,18 @@ function Navbar({ setModal7 }) {
             <Link to="/">Inicio</Link>
           </li>
           <li>
-            <Link>Documentación</Link>
+            <Link to="/docs">Documentación</Link>
           </li>
           <li>
-            <Link>Contacto</Link>
+            <a href="">Descargar App</a>
+          </li>
+          <li>
+            <Link to="/contacto">Contacto</Link>
           </li>
           <li>
             <details>
               <summary>Temas</summary>
-              <ul className="p-2 bg-base-200">
+              <ul className="p-2 bg-base-200 z-100">
                 <li>
                   <a data-set-theme="dark" data-act-class="menu-active">
                     Oscuro
@@ -119,38 +121,49 @@ function Navbar({ setModal7 }) {
       </div>
       <div className="navbar-end">
         {user ? (
-         <div>
-          <Link to={"/panel/" + user?.details?.default_folder_id} className="btn btn-primary me-4">Ver listas</Link>
-           <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
+          <div>
+            <Link
+              to={"/panel/" + user?.details?.default_folder_id}
+              className="btn btn-primary me-4"
             >
-              <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={user?.details?.avatar} />
+              Ver listas
+            </Link>
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={user?.details?.avatar}
+                  />
+                </div>
               </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <a> {user?.details?.name}</a>
+                </li>
+                <li>
+                  <a className="justify-between menu-disabled">Perfil</a>
+                </li>
+                <li>
+                  <a className="disabled" disabled>
+                    Ajustes
+                  </a>
+                </li>
+                <li>
+                  <a style={{ color: "red" }} onClick={signOut}>
+                    Cerrar sesion
+                  </a>
+                </li>
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a> {user?.details?.name}</a>
-              </li>
-              <li>
-                <a className="justify-between">Perfil</a>
-              </li>
-              <li>
-                <a>Ajustes</a>
-              </li>
-              <li>
-                <a style={{ color: "red" }} onClick={signOut}>Cerrar sesion</a>
-              </li>
-            </ul>
-            
           </div>
-         </div>
         ) : (
           <div>
             {" "}

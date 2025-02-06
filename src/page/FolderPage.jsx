@@ -2,7 +2,6 @@ import { useParams, Link } from "react-router-dom";
 import { useFolders } from "../context/FolderProvider";
 import NewFolderModal from "../components/NewModal";
 
-
 const FolderPage = () => {
   const { folderId } = useParams();
   const { folders, loading } = useFolders();
@@ -15,7 +14,7 @@ const FolderPage = () => {
 
   return (
     <div>
-         <NewFolderModal parentId={folderId}></NewFolderModal>
+      <NewFolderModal parentId={folderId}></NewFolderModal>
       <h1>Carpetas</h1>
       <ul>
         {currentFolders.map((folder) => (
@@ -24,7 +23,9 @@ const FolderPage = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => alert("Abrir modal para crear carpeta")}>Nueva Carpeta</button>
+      <button onClick={() => alert("Abrir modal para crear carpeta")}>
+        Nueva Carpeta
+      </button>
     </div>
   );
 };

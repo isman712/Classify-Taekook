@@ -27,6 +27,31 @@ function Lista() {
   const supabase = useSupabase();
   const [listName, setListName] = useState("");
   const [idList, setidList] = useState("");
+  useEffect(() => {
+    document.documentElement.classList.add("no-scroll");
+
+    return () => {
+      document.documentElement.classList.remove("no-scroll");
+    };
+  }, []);
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    return (
+      <dialog id="my_modal_1" className="modal bg-base-300" open>
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">No! No!</h3>
+          <p className="py-4">
+            Solo puedes acceder aquí desde la app movil o una vista de PC
+          </p>
+          <Link to="/" className="btn btn-primary w-full">
+            Ir al inicio
+          </Link>
+          <div className="modal-action"></div>
+        </div>
+      </dialog>
+    );
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,8 +107,6 @@ function Lista() {
           false
         );
       } else {
-
-
         console.log("Relaciones de estudiantes insertadas con éxito.");
       }
     }
@@ -107,8 +130,8 @@ function Lista() {
   return (
     <div className="flex h-full">
       <Menu foldersID={foldersID} TuMami={TuMami} SetTuMami={SetTuMami} />
-      <div className="ContenidoDash w-full p-5">
-        <div className="w-full items-center">
+      <div className="ContenidoDash w-full p-5" style={{ overflowY: "auto" }}>
+        <div className="w-full items-center mb-20">
           <div className="flex w-full items-center justify-start mb-10">
             <h1 className="text-2xl font-bold">Lista - {listName}</h1>
             <button
@@ -121,6 +144,7 @@ function Lista() {
               Guardar
             </button>
           </div>
+
           <HotTable
             ref={hotTableComponent}
             language={esMX.languageCode}
@@ -129,6 +153,8 @@ function Lista() {
             colHeaders={true}
             rowHeaders={true}
             columnSorting={true}
+            width="auto"
+            height={datos ? datos.length * 25 + 30 : 300}
             mergeCells={true}
             contextMenu={["clear_column", "cut", "copy", "undo", "redo"]}
             formulas={{

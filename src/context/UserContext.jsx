@@ -10,14 +10,14 @@ export const UserProvider = ({ children }) => {
   const [isMounted, setIsMounted] = useState(true);
 
   const fetchUser = async () => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const { data, error } = await supabase.auth.getUser();
 
       if (error) {
         console.error("Error fetching user:", error);
         if (isMounted) setUser(null);
-        setLoading(false); 
+        setLoading(false);
         return;
       }
 
@@ -93,7 +93,12 @@ export const UserProvider = ({ children }) => {
       .channel("user-details-updates")
       .on(
         "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "user_details", filter: `user_id=eq.${userId}` },
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "user_details",
+          filter: `user_id=eq.${userId}`,
+        },
         (payload) => {
           if (isMounted) {
             setUser((prevUser) => ({
@@ -114,9 +119,11 @@ export const UserProvider = ({ children }) => {
     setIsMounted(true);
     fetchUser();
 
-    const { data: subscription } = supabase.auth.onAuthStateChange((event, session) => {
-      handleAuthChange(event, session);
-    });
+    const { data: subscription } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        handleAuthChange(event, session);
+      }
+    );
 
     return () => {
       setIsMounted(false);
